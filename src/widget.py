@@ -23,6 +23,17 @@ def mask_account_card(number: Any) -> str:
         return "Неправильно введены данные!"
 
 
+def get_date(date: str) -> str:
+    """
+    Функция меняющая формат даты.
+    """
+    date_1 = date[:10].replace("-", " ").split()
+    day_month_year = date_1[2] + "." + date_1[1] + "." + date_1[0]
+    return day_month_year
+
+
 if __name__ == "__main__":
     number = input("Введите номер карты или номер счета: ")
     print(mask_account_card(number))
+    date = input("Введите дату: ")
+    print(get_date(date))
