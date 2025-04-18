@@ -1,0 +1,28 @@
+from typing import Any
+
+from src.masks import get_mask_account, get_mask_card_number
+
+
+def mask_account_card(number: Any) -> str:
+    """
+    Функция обрабатывающая информацию о картах и о счетах
+    """
+    if "Maestro" in number and len(number) == 24:
+        return "Maestro " + str(get_mask_card_number(number[8:]))
+    elif "MasterCard" in number and len(number) == 27:
+        return "MasterCard " + str(get_mask_card_number(number[11:]))
+    elif "Visa Classic" in number and len(number) == 29:
+        return "Visa Classic " + str(get_mask_card_number(number[13:]))
+    elif "Visa Platinum " in number and len(number) == 30:
+        return "Visa Platinum " + str(get_mask_card_number(number[14:]))
+    elif "Visa Gold" in number and len(number) == 26:
+        return "Visa Gold " + str(get_mask_card_number(number[10:]))
+    elif "Счет" in number and len(number) == 25:
+        return "Счет " + str(get_mask_account(number[5:]))
+    else:
+        return "Неправильно введены данные!"
+
+
+if __name__ == "__main__":
+    number = input("Введите номер карты или номер счета: ")
+    print(mask_account_card(number))
