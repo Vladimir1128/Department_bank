@@ -12,6 +12,14 @@ def filter_by_state(list_dictionaries: list, state: str) -> list:
     return list_dictionaries_1
 
 
+def sort_by_date(list_dictionaries: list) -> list:
+    """
+    Функция сортировки словарей по 'date'.
+    """
+    sorted_dates = sorted(list_dictionaries, reverse=True, key=lambda date: date["date"])
+    return sorted_dates
+
+
 if __name__ == "__main__":
     state = input("Введите состояние: ")
     list_dictionaries = [
@@ -22,3 +30,4 @@ if __name__ == "__main__":
     ]
     result = filter_by_state(list_dictionaries, state)
     print(result)
+    print(sort_by_date(list_dictionaries))
