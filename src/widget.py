@@ -27,10 +27,15 @@ def get_date(date: str) -> str:
     """
     Функция меняющая формат даты.
     """
-    date_1 = date[:10].replace("-", " ").split()
-    day_month_year = date_1[2] + "." + date_1[1] + "." + date_1[0]
-    return day_month_year
 
+        #date_digit = date[:10].isdigit()
+    date_1 = date[:10].replace("-", "")
+    #date_2 = date[10:11]
+    if len(date) == 26 and date_1.isdigit() and date[10:11].isalpha() and date[13:14] == ":":
+        day_month_year = date_1[6:8] + "." + date_1[4:6] + "." + date_1[:4]
+        return day_month_year
+    else:
+        return "Неправильно введены данные!"
 
 if __name__ == "__main__":
     number = input("Введите номер карты или номер счета: ")
