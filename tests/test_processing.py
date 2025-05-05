@@ -66,7 +66,8 @@ def test_sort_by_date_same_date(variable_3, revers, expected):
     assert sort_by_date(variable_3, revers) == expected
 
 
-@pytest.mark.parametrize("revers, expected", [(True, [{"id": 939719570, "state": "EXECUTED", "date": "2024-02-29T02:08:58.425572"},
+@pytest.mark.parametrize("revers, expected",
+                         [(True, [{"id": 939719570, "state": "EXECUTED", "date": "2024-02-29T02:08:58.425572"},
                                   {"id": 41428829, "state": "EXECUTED", "date": "2020-01-01T18:35:29.512364"},
                                   {"id": 594226727, "state": "CANCELED", "date": "2018-12-31T21:27:25.241689"},
                                   {"id": 615064591, "state": "CANCELED", "date": "2018-02-28T08:21:33.419441"}, ]
@@ -74,6 +75,7 @@ def test_sort_by_date_same_date(variable_3, revers, expected):
                                   False, [{"id": 615064591, "state": "CANCELED", "date": "2018-02-28T08:21:33.419441"},
                                           {"id": 594226727, "state": "CANCELED", "date": "2018-12-31T21:27:25.241689"},
                                           {"id": 41428829, "state": "EXECUTED", "date": "2020-01-01T18:35:29.512364"},
-                                          {"id": 939719570, "state": "EXECUTED", "date": "2024-02-29T02:08:58.425572"}, ] )])
+                                          {"id": 939719570, "state": "EXECUTED",
+                                           "date": "2024-02-29T02:08:58.425572"}, ])])
 def test_sort_by_date_sort_2(variable_4, revers, expected):
     assert sort_by_date(variable_4, revers) == expected

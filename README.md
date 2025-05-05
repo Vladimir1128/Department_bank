@@ -115,6 +115,79 @@ def sort_by_date(list_dictionaries: list, reverse: bool = True) -> list:
     return sorted_dates
 ```
 
+## *Тестирование:*
+
+В пакете tests созданы модули: 
+         
+[test_masks.py](tests/test_masks.py),
+```
+from src.masks import get_mask_card_number, get_mask_account
+
+
+def test_get_mask_card_number_correct_number(correct_number):
+    assert get_mask_card_number(7000792289606361) == correct_number
+```
+[test_widget.py](tests/test_widget.py),
+```
+import pytest
+
+from src.widget import mask_account_card, get_date
+
+
+@pytest.mark.parametrize('number, expected', [("Maestro 7000792289606361", "Maestro 7000 79** **** 6361"),
+                                              ("MasterCard 7158300734726758", "MasterCard 7158 30** **** 6758"),
+                                              ("Visa Classic 6831982476737658", "Visa Classic 6831 98** **** 7658"),
+                                              ("Visa Platinum 8990922113665229", "Visa Platinum 8990 92** **** 5229"),
+                                              ("Visa Gold 5999414228426353", "Visa Gold 5999 41** **** 6353"),
+                                              ("Счет 73654108430135874305", "Счет **4305")])
+def test_mask_account_card_correct(number, expected):
+    assert mask_account_card(number) == expected
+```
+
+[test_processing.py](tests/test_processing.py),
+```
+import pytest
+
+from src.processing import filter_by_state, sort_by_date
+from tests.conftest import variable_1
+
+
+@pytest.mark.parametrize("state, expected",
+                         [("EXECUTED", [{"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                                        {"id": 939719570, "state": "EXECUTED",
+                                         "date": "2018-06-30T02:08:58.425572"}, ]),
+                          ("CANCELED", [{"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                                        {"id": 615064591, "state": "CANCELED",
+                                         "date": "2018-10-14T08:21:33.419441"}, ])])
+def test_filter_by_state_by_default_1(state, variable_1, expected):
+    assert filter_by_state(variable_1, state) == expected
+```
+
+[conftest.py](tests/conftest.py)
+```
+
+@pytest.fixture
+def variable_1():
+    return [
+        {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+        {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+        {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+        {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+    ]
+```
+### Установка библиотеке pytest-cov :
+Следующей командой: 
+```
+poetry add --group dev pytest-cov
+```
+
+Для тестирования кода в Pycharm используется команда ```pytest```
+Чтобы запустить тесты с оценкой покрытия, можно воспользоваться следующими командами:
+```poetry run pytest --cov```,
+```pytest --cov```,
+```poetry run pytest --cov```
+
+Чтобы сгенерировать отчет о покрытии в HTML-формате:```pytest --cov=src --cov-report=html```
 ## Лицензия:
 
 
