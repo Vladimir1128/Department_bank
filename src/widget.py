@@ -1,3 +1,4 @@
+import re
 from typing import Any
 
 from src.masks import get_mask_account, get_mask_card_number
@@ -28,14 +29,26 @@ def get_date(date: str) -> str:
     Функция меняющая формат даты.
     """
 
-        #date_digit = date[:10].isdigit()
     date_1 = date[:10].replace("-", "")
-    #date_2 = date[10:11]
-    if len(date) == 26 and date_1.isdigit() and date[10:11].isalpha() and date[13:14] == ":":
-        day_month_year = date_1[6:8] + "." + date_1[4:6] + "." + date_1[:4]
-        return day_month_year
+    day = date_1[6:8]
+    month = date_1[4:6]
+    year = date_1[:4]
+    if not re.match(r"^\d{4}-\d{2}-\d{2}T", date):
+        raise ValueError("Неправильно введены данные!")
+    elif len(date) != 26 and date_1.isdigit():
+        raise ValueError("Неправильная длина данных!")
+    elif int(day) > 31 or day == "00":
+        raise ValueError("Неправильно введена дата!")
+    elif int(month) > 12 or month == "00":
+        raise ValueError("Месяц указан неверно")
+    elif int(year) > 9000 or year == "0000":
+        raise ValueError("Год указан неверно")
+    elif int(day) > 29 and month == "02":
+        raise ValueError("Неправильно введена дата!")
     else:
-        return "Неправильно введены данные!"
+        day_month_year = day + "." + month + "." + year
+    return day_month_year
+
 
 if __name__ == "__main__":
     number = input("Введите номер карты или номер счета: ")
