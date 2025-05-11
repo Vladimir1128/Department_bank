@@ -1,3 +1,4 @@
+import re
 from typing import Any
 
 from src.masks import get_mask_account, get_mask_card_number
@@ -26,9 +27,27 @@ def mask_account_card(number: Any) -> str:
 def get_date(date: str) -> str:
     """
     Функция меняющая формат даты.
+    :rtype: object
     """
-    date_1 = date[:10].replace("-", " ").split()
-    day_month_year = date_1[2] + "." + date_1[1] + "." + date_1[0]
+
+    date_1 = date[:10].replace("-", "")
+    day = date_1[6:8]
+    month = date_1[4:6]
+    year = date_1[:4]
+    if not re.match(r"^\d{4}-\d{2}-\d{2}T", date):
+        raise ValueError("Неправильно введены данные!")
+    elif len(date) != 26 and date_1.isdigit():
+        raise ValueError("Неправильная длина данных!")
+    elif int(day) > 31 or day == "00":
+        raise ValueError("Неправильно введена дата!")
+    elif int(month) > 12 or month == "00":
+        raise ValueError("Месяц указан неверно")
+    elif int(year) > 9000 or year == "0000":
+        raise ValueError("Год указан неверно")
+    elif int(day) > 29 and month == "02":
+        raise ValueError("Неправильно введена дата!")
+    else:
+        day_month_year = day + "." + month + "." + year
     return day_month_year
 
 
