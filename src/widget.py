@@ -27,6 +27,7 @@ def mask_account_card(number: Any) -> str:
 def get_date(date: str) -> str:
     """
     Функция меняющая формат даты.
+    :rtype: object
     """
 
     date_1 = date[:10].replace("-", "")
