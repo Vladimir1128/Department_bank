@@ -5,6 +5,20 @@ def filter_by_currency(transactions: list, currency: str) -> Generator[Any, Any,
     for key in transactions:
         if key["operationAmount"]["currency"]["code"] == currency:
             yield key
+        else:
+            raise Exception("Отсутствует элемент!")
+
+
+def transaction_descriptions(transactions: list[dict]) -> Generator[str]:
+    if not transactions:
+        raise ValueError("Передано пустое значение!")
+
+    for key in transactions:
+        if "description" not in key:
+            yield 'Отсутствует описание'
+        else:
+            yield key["description"]
+
 
 
 if __name__ == "__main__":
@@ -90,3 +104,6 @@ if __name__ == "__main__":
     usd_transactions = filter_by_currency(transactions, "USD")
     for _ in range(2):
         print(next(usd_transactions))
+    descriptions = transaction_descriptions(transactions)
+    for _ in range(5):
+        print(next(descriptions))
