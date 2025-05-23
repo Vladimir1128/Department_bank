@@ -2,6 +2,10 @@ from typing import Any, Generator
 
 
 def filter_by_currency(transactions: list, currency: str) -> Generator[Any, Any, None]:
+    """
+    Функция возвращает итератор, который поочередно выдает транзакции,
+     где валюта операции соответствует заданной.
+    """
     for key in transactions:
         if key["operationAmount"]["currency"]["code"] == currency:
             yield key
@@ -10,6 +14,9 @@ def filter_by_currency(transactions: list, currency: str) -> Generator[Any, Any,
 
 
 def transaction_descriptions(transactions: list[dict]) -> Generator[str]:
+    """
+    Генератор, который принимает список словарей с транзакциями и возвращает описание каждой операции по очереди.
+    """
     if not transactions:
         raise ValueError("Передано пустое значение!")
 
@@ -19,6 +26,14 @@ def transaction_descriptions(transactions: list[dict]) -> Generator[str]:
         else:
             yield key["description"]
 
+
+def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
+    """
+    Генерирует номера карт в заданном диапазоне
+    """
+    for number in range(start, stop):
+        card_number = str(number).zfill(16)
+        yield f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}"
 
 
 if __name__ == "__main__":
@@ -107,3 +122,5 @@ if __name__ == "__main__":
     descriptions = transaction_descriptions(transactions)
     for _ in range(5):
         print(next(descriptions))
+    for card_number in card_number_generator(1, 5):
+        print(card_number)
