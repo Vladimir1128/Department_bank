@@ -1,24 +1,28 @@
 from typing import Any, Generator
 
 
-def filter_by_currency(transactions: list, currency: str) -> Generator[Any, Any, None]:
+def filter_by_currency(transactions: list, currency: str) -> Generator[Any, Any, str | None]:
     """
     Функция возвращает итератор, который поочередно выдает транзакции,
      где валюта операции соответствует заданной.
     """
+    if not transactions or not currency:
+        result = "Передано пустое значение!"
+        return result
+
     for key in transactions:
         if key["operationAmount"]["currency"]["code"] == currency:
             yield key
-        else:
-            raise Exception("Отсутствует элемент!")
 
 
-def transaction_descriptions(transactions: list[dict]) -> Generator[str]:
+def transaction_descriptions(transactions: list[dict]) -> Generator[str | Any, None, str | None]:
     """
     Генератор, который принимает список словарей с транзакциями и возвращает описание каждой операции по очереди.
     """
-    if not transactions:
-        raise ValueError("Передано пустое значение!")
+    if not transactions :
+        result = "Передано пустое значение!"
+        return result
+
 
     for key in transactions:
         if "description" not in key:
@@ -116,7 +120,9 @@ if __name__ == "__main__":
             }
         ]
     )
-    usd_transactions = filter_by_currency(transactions, "USD")
+    #transactions = []
+    currency= "USD"
+    usd_transactions = filter_by_currency(transactions, currency)
     for _ in range(2):
         print(next(usd_transactions))
     descriptions = transaction_descriptions(transactions)
