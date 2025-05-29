@@ -25,8 +25,8 @@ from src.processing import filter_by_state, sort_by_date
 def test_filter_by_state_by_default_1(
         state: str,
         variable_1: list[dict[str, str | int]],
-        expected: list[dict[str, str | int] | dict[str, str | int]] | list[dict[str, str | int] | dict[str, str | int]],
-) -> None:
+        expected: list[dict[str, str | int] | dict[str, str | int]] | list[
+            dict[str, str | int] | dict[str, str | int]], ) -> None:
     assert filter_by_state(variable_1, state) == expected
 
 
@@ -77,8 +77,8 @@ def test_filter_by_state_by_default_3() -> None:
 def test_filter_by_state_by_default_4(
         state: str,
         variable_2: list[dict[str, str | int]],
-        expected: list[dict[str, str | int] | dict[str, str | int]] | list[dict[str, str | int] | dict[str, str | int]],
-) -> None:
+        expected: list[dict[str, str | int] | dict[str, str | int]] | list[
+            dict[str, str | int] | dict[str, str | int]], ) -> None:
     assert filter_by_state(variable_2, state) == expected
 
 
