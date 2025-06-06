@@ -5,8 +5,7 @@ from typing import Any
 def log(filename: Any = None) -> Any:
     def decorator(func: Any) -> Any:
         @wraps(func)
-        def wrapper(*args: Any,
-                    **kwargs: Any) -> Any:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 result = func(*args, **kwargs)
                 message = f"{func.__name__} ok"
@@ -31,8 +30,7 @@ def log(filename: Any = None) -> Any:
 
 
 @log(filename="mylog.txt")
-def my_function(x: Any,
-                y: Any) -> Any:
+def my_function(x: Any, y: Any) -> Any:
     return x + y
 
 
