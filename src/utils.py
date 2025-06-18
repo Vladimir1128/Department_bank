@@ -22,4 +22,6 @@ def way_to_json(json_file: str) -> list[Any]:
 
 
 if __name__ == "__main__":
-    print(way_to_json("data/operations.json"))
+    transactions_ = way_to_json("data/operations.json")
+    print(transactions_)
+
