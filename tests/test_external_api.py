@@ -24,16 +24,16 @@ def test_currency_conversion_1(mock_request):
             "to": "Счет 35383033474447895560"
         }
     ]
-    code_ = "USD"
+    code_1 = "RUB"
     transaction_code = test_1[0]["operationAmount"]["currency"]["code"]
     amount = float(test_1[0]["operationAmount"]["amount"])
 
     mock_request.return_value.json.return_value = {"result": 8221.37}
     mock_request.return_value.status_code = 200
-    assert currency_conversion(test_1, "USD") == [8221.37]
-    # print(mock_request.return_value.json.return_value)
+    assert currency_conversion(test_1) == 8221.37
+    print(mock_request.return_value.json.return_value)
     mock_request.assert_called_once_with(
-        f"https://api.apilayer.com/exchangerates_data/convert?to={code_}&from={transaction_code}&amount={amount}",
+        f"https://api.apilayer.com/exchangerates_data/convert?to={code_1}&from={transaction_code}&amount={amount}",
         headers=headers,
         data={}
     )
