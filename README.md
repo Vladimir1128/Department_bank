@@ -271,6 +271,48 @@ def my_function(x: Any,
 
 my_function(1, 2)
 ```
+### Установка библиотеке pandas :
+Следующей командой: 
+```
+poetry add pandas
+```
+## Работа модуля [data_frame.py](src/data_frame.py)
+Эта функция работает с данными в формате .csv
+
+```
+def my_csv(data_csv: Any) -> str | None:
+    """
+    Function reads .csv
+    """
+    try:
+        csv_data = pd.read_csv(data_csv, sep=";")
+        print(csv_data.shape)
+        head_csv = csv_data.head()
+        js_dict = head_csv.to_dict(orient="records")
+        return json.dumps(js_dict, ensure_ascii=False, indent=4)
+
+    except FileNotFoundError as file:
+        print(f"File {file} not found")
+    return None
+```
+Эта функция работает с данными в формате .excel
+```
+def my_excel(data_excel: Any) -> str | None:
+    """
+    Function reads .excel
+    """
+    try:
+        excel_data = pd.read_excel(data_excel)
+        print(excel_data.shape)
+        head_excel = excel_data.head()
+        js_dict = head_excel.to_dict(orient="records")
+        return json.dumps(js_dict, ensure_ascii=False, indent=4)
+
+    except FileNotFoundError as file:
+        print(f"File {file} not found")
+    return None
+```
+
 ## Лицензия:
 
 

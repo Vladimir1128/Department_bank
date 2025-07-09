@@ -209,7 +209,7 @@ def test_filter_by_currency_4(dictionaries: list, currency: str, expected: str) 
     assert result == expected
 
 
-def test_transaction_descriptions(dictionaries_1: list) -> None:
+def test_transaction_descriptions_1(dictionaries_1: list) -> None:
     result = list(transaction_descriptions(dictionaries_1))
     expected = [
         "Перевод организации",

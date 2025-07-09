@@ -1,5 +1,5 @@
 import os
-from typing import Any, Generator
+from typing import Any
 
 import requests
 from dotenv import load_dotenv
@@ -44,8 +44,7 @@ def currency_conversion(transaction: list[dict[Any, Any]]) -> int | float | str 
 
         if transact_code in ("USD", "EUR"):
             url = (
-                f"https://api.apilayer.com/exchangerates_data/convert?"
-                f"to=RUB&from={transact_code}&amount={amount}"
+                f"https://api.apilayer.com/exchangerates_data/convert?" f"to=RUB&from={transact_code}&amount={amount}"
             )
             response = requests.get(url, headers=headers, data=payload)
             if response.status_code == 200:
